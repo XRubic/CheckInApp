@@ -1,0 +1,14 @@
+﻿<Window x:Class="ClockIn.BreakReminderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Break Reminder" Height="Auto" Width="Auto"
+        Background="Yellow" BorderBrush="Black" BorderThickness="1">
+    <StackPanel Margin="10">
+        <TextBlock Text="You are currently on a break!" 
+                   FontWeight="Bold" 
+                   Margin="0,0,0,10"/>
+        <Button Content="End Break" 
+                Padding="5" 
+                Click="EndBreakButton_Click"/>
+    </StackPanel>
+</Window>

@@ -1,0 +1,79 @@
+﻿<Window x:Class="ClockIn.UserDashboard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="ClockIn - User Dashboard" Height="600" Width="900"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="{materialDesign:MaterialDesignFont}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top Bar -->
+        <materialDesign:ColorZone Mode="PrimaryMid" Padding="16">
+            <DockPanel>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Clock" Height="24" Width="24" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="CurrentTimeTextBlock" Margin="8 0 0 0" VerticalAlignment="Center" FontSize="18"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock x:Name="UsernameTextBlock" VerticalAlignment="Center" Margin="0 0 16 0"/>
+                    <Button Style="{StaticResource MaterialDesignFlatButton}" Click="LogoutButton_Click">
+                        <TextBlock Text="Sign Out"/>
+                    </Button>
+                </StackPanel>
+            </DockPanel>
+        </materialDesign:ColorZone>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1" Margin="16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Side - Status and Controls -->
+            <StackPanel Grid.Column="0">
+                <TextBlock x:Name="StatusTextBlock" FontSize="24" FontWeight="Bold" Margin="0 0 0 16"/>
+                <Button x:Name="ClockInOutButton" Click="ClockInOut_Click" Margin="0 0 0 16"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Height="50" FontSize="16">
+                    <TextBlock x:Name="ClockInOutText" Text="Start Work Day"/>
+                </Button>
+                <Button x:Name="BreakButton" Click="Break_Click" Margin="0 0 0 16"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Height="50" FontSize="16">
+                    <TextBlock x:Name="BreakText" Text="Take a Break"/>
+                </Button>
+                <TextBlock x:Name="TotalWorkedHoursTextBlock" Margin="0 0 0 8"/>
+                <TextBlock x:Name="TotalBreakDurationTextBlock" Margin="0 0 0 8"/>
+            </StackPanel>
+
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
+
+            <!-- Right Side - Action Log -->
+            <DockPanel Grid.Column="2">
+                <TextBlock Text="Today's Activity" FontSize="20" FontWeight="Bold" DockPanel.Dock="Top" Margin="0 0 0 16"/>
+                <DataGrid x:Name="ActionLogDataGrid" ItemsSource="{Binding ActionLogs}" 
+                          AutoGenerateColumns="False" IsReadOnly="True"
+                          materialDesign:DataGridAssist.CellPadding="13 8 8 8"
+                          materialDesign:DataGridAssist.ColumnHeaderPadding="15">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Time" Binding="{Binding Timestamp, StringFormat=\{0:HH:mm:ss\}}"/>
+                        <DataGridTextColumn Header="Activity" Binding="{Binding Action}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </Grid>
+    </Grid>
+</Window>
